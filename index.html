@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamApp - Live & Premium</title>
+    <meta name="theme-color" content="#000000">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. AGE WARNING OVERLAY -->
+    <div id="age-gate" class="overlay">
+        <div class="modal-box">
+            <h2 class="warning-text">⚠️ WARNING +18</h2>
+            <p>This website contains age-restricted content.</p>
+            <p>By entering, you confirm you are 18 years of age or older.</p>
+            <div class="btn-group">
+                <button onclick="enterSite()">I am 18+ (Enter)</button>
+                <button onclick="exitSite()" class="secondary">Exit</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. AUTHENTICATION SECTION (Login / Sign Up) -->
+    <div id="auth-section" class="hidden">
+        <div class="auth-container">
+            <h1 id="auth-title">Welcome Back</h1>
+            
+            <!-- Login Form -->
+            <form id="login-form">
+                <input type="email" id="login-email" placeholder="Email Address" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit" class="primary-btn">Login</button>
+                <p>New here? <a href="#" onclick="toggleAuth('signup')">Create Account</a></p>
+            </form>
+
+            <!-- Sign Up Form -->
+            <form id="signup-form" class="hidden">
+                <input type="text" id="signup-name" placeholder="Username" required>
+                <input type="email" id="signup-email" placeholder="Email Address" required>
+                <input type="password" id="signup-password" placeholder="Create Password" required>
+                <button type="submit" class="primary-btn">Sign Up</button>
+                <p>Already have an account? <a href="#" onclick="toggleAuth('login')">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. MAIN APP (Hidden by default until logged in) -->
+    <div id="app-container" class="hidden">
+        
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="logo">StreamApp</div>
+            <div class="nav-links">
+                <button onclick="navTo('feed')">Home</button>
+                <button onclick="navTo('creator')" id="creator-btn">Studio</button>
+                <button onclick="navTo('premium')" id="premium-btn">Go Premium</button>
+                <button onclick="logout()">Logout</button>
+            </div>
+        </nav>
+
+        <!-- FEED PAGE -->
+        <section id="page-feed" class="page">
+            <h2>Live & Trending</h2>
+            <div class="video-grid" id="video-feed">
+                <!-- Videos will be injected here by JS -->
+            </div>
+        </section>
+
+        <!-- CREATOR STUDIO PAGE -->
+        <section id="page-creator" class="page hidden">
+            <h2>Creator Studio</h2>
+            <div class="upload-card">
+                <h3>Upload New Content</h3>
+                <input type="text" id="video-title" placeholder="Video Title" class="input-field">
+                <select id="video-type" class="input-field">
+                    <option value="free">Free Stream</option>
+                    <option value="premium">Premium Only</option>
+                </select>
+                <button onclick="uploadVideo()" class="primary-btn">Post Video</button>
+            </div>
+            
+            <h3>My Earnings</h3>
+            <div class="stats-card">
+                <p>Total Balance: <strong>$<span id="balance">0.00</span></strong></p>
+                <button class="payout-btn" onclick="requestPayout()">Request Payout</button>
+            </div>
+        </section>
+
+        <!-- PREMIUM PAGE -->
+        <section id="page-premium" class="page hidden">
+            <div class="premium-hero">
+                <h1>👑 Go Premium</h1>
+                <p>Unlock exclusive content, HD streaming, and no ads.</p>
+                <ul>
+                    <li>✅ Access to VIP models</li>
+                    <li>✅ Ad-free experience</li>
+                    <li>✅ Private messaging</li>
+                </ul>
+                <h2>$9.99 / month</h2>
+                <button onclick="openPaymentModal()" class="gold-btn">Subscribe Now</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- 4. PAYMENT MODAL -->
+    <div id="payment-modal" class="overlay hidden">
+        <div class="modal-box">
+            <h3>Secure Payment</h3>
+            <div class="payment-methods">
+                <label><input type="radio" name="pay" checked> Credit Card</label>
+                <label><input type="radio" name="pay"> PayPal</label>
+                <label><input type="radio" name="pay"> Crypto</label>
+            </div>
+            <input type="text" placeholder="Card Number" class="input-field">
+            <div style="display:flex; gap:10px;">
+                <input type="text" placeholder="MM/YY" class="input-field">
+                <input type="text" placeholder="CVC" class="input-field">
+            </div>
+            <div class="btn-group">
+                <button onclick="processPayment()" class="primary-btn">Pay $9.99</button>
+                <button onclick="closePaymentModal()" class="secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
